@@ -1,0 +1,30 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+def f(x):
+    return (x+3)**2
+def gradient(x):
+    return 2 * (x+3)
+x = 2
+learning_rate = 0.1
+iterations = 50
+x_values = [x]
+y_values = [f(x)]
+for i in range(iterations):
+    x = x - learning_rate * gradient(x)
+    x_values.append(x)
+    y_values.append(f(x))
+print("Local Minimun at x:",round(x,4))
+print("Minimum value of y:",round(f(x),4))
+import numpy as np
+x_plot = np.linspace(-5,3,200)
+y_plot = f(x_plot) 
+plt.plot(x_plot,y_plot,label='y=(x+3)^2')
+plt.scatter(x_values,y_values,color='red',label='Gradient Descent')
+plt.plot(x_values,y_values,color='red',linestyle='--')
+plt.scatter(x,f(x),color='green',s=50,label='Local Minimum')
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.legend()
+plt.grid(True)
+plt.show()
+

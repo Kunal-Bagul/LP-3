@@ -1,0 +1,68 @@
+create file with Student.sol
+
+
+
+ // SPDX-License-Identifier: MIT
+pragma solidity 0.8.38;
+
+contract StudentManagement {
+
+    // Structure to store student details
+    struct Student {
+        uint rollNo;
+        string name;
+        uint marks;
+    }
+
+    // Array to store multiple students
+    Student[] public students;
+
+    // Add student details
+    function addStudent(
+        uint _rollNo,
+        string memory _name,
+        uint _marks
+    ) public {
+
+        students.push(
+            Student(_rollNo, _name, _marks)
+        );
+    }
+
+    // Display student details using index
+    function getStudent(uint index)
+        public
+        view
+        returns (uint, string memory, uint)
+    {
+        require(index < students.length, "Invalid index");
+
+        Student memory s = students[index];
+
+        return (s.rollNo, s.name, s.marks);
+    }
+    
+    
+    function deleteStudent(uint index) public {
+
+        require(index < students.length, "Invalid index");
+
+        // Shift remaining students one position left
+        for (uint i = index; i < students.length - 1; i++) {
+            students[i] = students[i + 1];
+        }
+
+        // Remove the last element
+        students.pop();
+    }
+
+
+    // Count total students
+    function getStudentCount()
+        public
+        view
+        returns (uint)
+    {
+        return students.length;
+    }
+}
